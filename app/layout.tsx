@@ -68,7 +68,7 @@ export default function RootLayout({
         <link rel="shortcut icon" href="/icons/icon-72x72.png" />
         
         {/* Viewport for PWA */}
-        <meta name="viewport" content="minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no, user-scalable=no, viewport-fit=cover" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover" />
       </head>
       <body className={`font-sans ${GeistSans.variable} ${GeistMono.variable}`}>
         {children}

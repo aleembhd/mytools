@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Generate PWA Icons</title>
+    <style>
+        canvas { border: 1px solid #ccc; margin: 10px; }
+        .container { max-width: 800px; margin: 0 auto; padding: 20px; }
+        button { padding: 10px 20px; margin: 5px; background: #007bff; color: white; border: none; border-radius: 5px; cursor: pointer; }
+        button:hover { background: #0056b3; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>PWA Icon Generator</h1>
+        <p>Click the button below to generate proper PNG icons for your PWA:</p>
+        
+        <button onclick="generateIcons()">Generate Icons</button>
+        <div id="status"></div>
+        
+        <div id="canvases"></div>
+        
+        <h2>Instructions:</h2>
+        <ol>
+            <li>Click "Generate Icons" above</li>
+            <li>Right-click each generated icon and "Save image as..."</li>
+            <li>Save as icon-192x192.png and icon-512x512.png in your /public/icons/ folder</li>
+            <li>Deploy to Vercel and test PWA installation</li>
+        </ol>
+    </div>
+
+    <script>
+        function generateIcons() {
+            const sizes = [192, 512];
+            const container = document.getElementById('canvases');
+            const status = document.getElementById('status');
+            
+            container.innerHTML = '';
+            status.innerHTML = 'Generating icons...';
+            
+            sizes.forEach(size => {
+                const canvas = document.createElement('canvas');
+                canvas.width = size;
+                canvas.height = size;
+                const ctx = canvas.getContext('2d');
+                
+                // Background
+                ctx.fillStyle = '#1f2937';
+                ctx.fillRect(0, 0, size, size);
+                
+                // Calculate scaling factor
+                const scale = size / 512;
+                
+                // Bookmark shape
+                ctx.fillStyle = '#3b82f6';
+                ctx.beginPath();
+                ctx.moveTo(64 * scale, 0);
+                ctx.lineTo(192 * scale, 0);
+                ctx.lineTo(256 * scale, 64 * scale);
+                ctx.lineTo(256 * scale, 280 * scale);
+                ctx.lineTo(232 * scale, 312 * scale);
+                ctx.lineTo(128 * scale, 224 * scale);
+                ctx.lineTo(24 * scale, 312 * scale);
+                ctx.lineTo(0, 280 * scale);
+                ctx.lineTo(0, 64 * scale);
+                ctx.closePath();
+                ctx.fill();
+                
+                // Star
+                ctx.fillStyle = '#fbbf24';
+                ctx.beginPath();
+                const centerX = 128 * scale;
+                const centerY = 120 * scale;
+                const radius = 20 * scale;
+                for (let i = 0; i < 5; i++) {
+                    const angle = (i * 144 - 90) * Math.PI / 180;
+                    const x = centerX + radius * Math.cos(angle);
+                    const y = centerY + radius * Math.sin(angle);
+                    if (i === 0) ctx.moveTo(x, y);
+                    else ctx.lineTo(x, y);
+                }
+                ctx.closePath();
+                ctx.fill();
+                
+                // App name
+                ctx.fillStyle = '#ffffff';
+                ctx.font = `bold ${48 * scale}px Arial`;
+                ctx.textAlign = 'center';
+                ctx.fillText('MyTools', size / 2, size - 60 * scale);
+                
+                // Add to page
+                const div = document.createElement('div');
+                div.innerHTML = `<h3>Icon ${size}x${size}</h3>`;
+                div.appendChild(canvas);
+                container.appendChild(div);
+            });
+            
+            status.innerHTML = 'Icons generated! Right-click to save each icon.';
+        }
+    </script>
+</body>
+</html>
