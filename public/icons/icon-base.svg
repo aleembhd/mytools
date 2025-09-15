@@ -1,0 +1,20 @@
+<!-- App Icon SVG Template -->
+<svg width="512" height="512" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <rect width="512" height="512" fill="#1f2937" rx="90"/>
+  
+  <!-- Bookmark Icon -->
+  <g transform="translate(128, 100)">
+    <!-- Main bookmark shape -->
+    <path d="M64 0 C64 0 0 0 0 64 L0 280 C0 296 8 312 24 312 L40 312 L128 224 L216 312 L232 312 C248 312 256 296 256 280 L256 64 C256 0 192 0 192 0 L64 0 Z" fill="#3b82f6"/>
+    
+    <!-- Inner highlight -->
+    <path d="M64 20 C64 20 20 20 20 64 L20 280 C20 290 24 296 32 296 L48 296 L128 216 L208 296 L224 296 C232 296 236 290 236 280 L236 64 C236 20 192 20 192 20 L64 20 Z" fill="#60a5fa"/>
+    
+    <!-- Star accent -->
+    <path d="M128 80 L138 110 L168 110 L144 128 L154 158 L128 140 L102 158 L112 128 L88 110 L118 110 Z" fill="#fbbf24"/>
+  </g>
+  
+  <!-- App name -->
+  <text x="256" y="450" text-anchor="middle" fill="#ffffff" font-family="Arial, sans-serif" font-size="48" font-weight="bold">MyTools</text>
+</svg>
