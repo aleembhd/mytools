@@ -51,7 +51,9 @@ export default function RootLayout({
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="default" />
         <meta name="apple-mobile-web-app-title" content="MyTools" />
+        <meta name="apple-mobile-web-app-orientation" content="portrait" />
         <meta name="mobile-web-app-capable" content="yes" />
+        <meta name="screen-orientation" content="portrait" />
         <meta name="msapplication-config" content="/icons/browserconfig.xml" />
         <meta name="msapplication-TileColor" content="#1f2937" />
         <meta name="msapplication-tap-highlight" content="no" />
@@ -89,6 +91,28 @@ export default function RootLayout({
                     });
                 });
               }
+              
+              // Lock orientation to portrait
+              function lockOrientation() {
+                if ('screen' in window && 'orientation' in window.screen) {
+                  if ('lock' in window.screen.orientation) {
+                    window.screen.orientation.lock('portrait').catch(function(error) {
+                      console.log('Orientation lock failed:', error);
+                    });
+                  }
+                }
+              }
+              
+              // Try to lock orientation when page loads
+              window.addEventListener('load', lockOrientation);
+              
+              // Also try when app becomes fullscreen (PWA install)
+              document.addEventListener('fullscreenchange', lockOrientation);
+              
+              // Handle orientation change events
+              window.addEventListener('orientationchange', function() {
+                setTimeout(lockOrientation, 100);
+              });
             `,
           }}
         />

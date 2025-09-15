@@ -80,3 +80,26 @@ self.addEventListener('push', (event) => {
 })
 
 console.log('MyTools Service Worker loaded')
+
+// Lock orientation to portrait when service worker loads
+self.addEventListener('activate', (event) => {
+  event.waitUntil(
+    caches.keys().then((cacheNames) => {
+      return Promise.all(
+        cacheNames.map((cacheName) => {
+          if (cacheName !== CACHE_NAME) {
+            console.log('Deleting old cache:', cacheName)
+            return caches.delete(cacheName)
+          }
+        })
+      )
+    })
+  )
+  
+  // Lock orientation to portrait if supported
+  if ('screen' in self && 'orientation' in self.screen && 'lock' in self.screen.orientation) {
+    self.screen.orientation.lock('portrait').catch((err) => {
+      console.log('Orientation lock failed:', err)
+    })
+  }
+})

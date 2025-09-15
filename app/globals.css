@@ -124,3 +124,43 @@
     @apply bg-background text-foreground;
   }
 }
+
+/* PWA Portrait Lock - Prevent Auto-Rotation */
+@media screen and (orientation: landscape) {
+  html {
+    transform: rotate(90deg);
+    transform-origin: left top;
+    width: 100vh;
+    height: 100vw;
+    overflow-x: hidden;
+    position: absolute;
+    top: 100%;
+    left: 0;
+  }
+}
+
+/* Force portrait orientation styles */
+@supports (orientation: portrait) {
+  html {
+    orientation: portrait;
+  }
+}
+
+/* Lock orientation for PWA */
+html {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -webkit-touch-callout: none;
+  -webkit-text-size-adjust: none;
+  -moz-text-size-adjust: none;
+  -ms-text-size-adjust: none;
+}
+
+/* Prevent zoom and maintain portrait layout */
+body {
+  touch-action: pan-x pan-y;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
+}
